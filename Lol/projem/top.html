@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üst Koridor Şampiyonları</title>
+    <style>
+        body { 
+            background-color: #091428; 
+            color: #f0e6d2; 
+            font-family: 'Cinzel', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .top-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #c8aa6e; 
+            padding-bottom: 10px; 
+            margin-bottom: 30px; 
+        }
+        
+        /* LOGO TIKLANABİLİR BÖLÜMÜ */
+        .site-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .site-logo img {
+            height: 45px;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+        .site-logo img:hover {
+            transform: scale(1.1);
+        }
+
+        h1 { color: #c8aa6e; margin: 0; font-size: 24px; letter-spacing: 2px; }
+        
+        .champion-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        .champion-card { 
+            background: #1e2328; 
+            border: 1px solid #c8aa6e; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: transform 0.2s, box-shadow 0.2s; 
+            padding-bottom: 10px;
+        }
+        .champion-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 5px 15px rgba(200, 170, 110, 0.4); 
+        }
+        
+        .img-container {
+            width: 100%;
+            height: 220px;
+            background: #010a13;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .champion-card h3 { margin: 12px 0 5px 0; color: #f0e6d2; }
+        .champion-card p { margin: 0 0 10px 0; color: #a09b8c; font-size: 14px; }
+
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000; 
+        }
+        .modal-content { 
+            background: #010a13; 
+            border: 2px solid #c8aa6e; 
+            padding: 25px; 
+            border-radius: 8px; 
+            max-width: 600px; 
+            width: 90%; 
+            max-height: 85vh; 
+            overflow-y: auto; 
+            position: relative; 
+        }
+        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 28px; cursor: pointer; color: #c8aa6e; }
+        .tag { display: inline-block; padding: 5px 10px; margin: 4px; border-radius: 4px; font-size: 13px; }
+        .tag.item { background: #1c3d5a; border: 1px solid #005a82; color: #fff; }
+        .tag.counter { background: #5a1c1c; border: 1px solid #820000; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <!-- LOGO (Tıklayınca lol.htm 'e gider) -->
+        <a href="lol.html" class="site-logo">
+            <img src="file:///C|/Users/Ogr14/Desktop/jj/Lol/Resimler/logo.png" alt="LoL Logo">
+        </a>
+        <h1>UST KORIDOR (TOP)</h1>
+        <div></div>
+    </div>
+
+    <main class="champion-grid">
+        <div class="champion-card" onclick="openModal('darius')">
+            <div class="img-container"><img src="file:///C|/Users/Ogr14/Desktop/jj/Lol/Resimler/darius.jpg" alt="Darius"></div>
+            <h3>Darius</h3>
+            <p>Noxus'un Kudreti</p>
+        </div>
+
+        <div class="champion-card" onclick="openModal('garen')">
+            <div class="img-container"><img src="file:///C|/Users/Ogr14/Desktop/jj/Lol/Resimler/garen.jpg" alt="Garen"></div>
+            <h3>Garen</h3>
+            <p>Demacia'nın Kudreti</p>
+        </div>
+    </main>
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const championsData = {
+            darius: {
+                name: "Darius", title: "Noxus'un Kudreti",
+                abilities: [
+                    { key: "Pasif", name: "Kanserojen Darbe", desc: "Hedeflere kanama biriktirir." },
+                    { key: "Q", name: "Kıyım", desc: "Çevresindeki rakiplere balta savurur." },
+                    { key: "W", name: "Biçer Yürek", desc: "Sıradaki saldırıyı güçlendirir ve yavaşlatır." },
+                    { key: "E", name: "Tutulma", desc: "Rakipleri kendine çeker." },
+                    { key: "R", name: "Noxus Giyotini", desc: "Gerçek hasar veren idam darbesi indirir." }
+                ],
+                items: ["Üçlü Kuvvet", "Sterak'ın Güvencesi", "Ölümün Dansı", "Mercirli Çizme"],
+                counters: ["Vayne", "Quinn", "Malphite"]
+            },
+            garen: {
+                name: "Garen", title: "Demacia'nın Kudreti",
+                abilities: [
+                    { key: "Pasif", name: "Demacia'nın Azameti", desc: "Hasar almadığında canını hızla yeniler." },
+                    { key: "Q", name: "Amansız Hücum", desc: "Yavaşlatmalardan kurtulur ve susturur." },
+                    { key: "W", name: "Cesaret", desc: "Hasar direncini artırır ve kalkan sağlar." },
+                    { key: "E", name: "Yargı", desc: "Kılıcını etrafında hızla döndürür." },
+                    { key: "R", name: "Demacia Adaleti", desc: "Hedefe infaz hasarı basar." }
+                ],
+                items: ["Çelik İrade", "Ölümcül Ahenk", "Sterak", "Sürat Çizmeleri"],
+                counters: ["Darius", "Kayle", "Vayne"]
+            }
+        };
+
+        function openModal(champKey) {
+            const champ = championsData[champKey];
+            const modal = document.getElementById("detailModal");
+            const modalBody = document.getElementById("modalBody");
+            let abilitiesHTML = champ.abilities.map(a => `<li><b>[${a.key}] ${a.name}:</b>${a.desc}</li>`).join("");
+            let itemsHTML = champ.items.map(i => `<span class="tag item">${i}</span>`).join(" ");
+            let countersHTML = champ.counters.map(c => `<span class="tag counter">${c}</span>`).join(" ");
+            modalBody.innerHTML = `
+                <h2 style="color: #c8aa6e; margin-top:0;">${champ.name} <span style="font-size:16px; color:#a09b8c;">- ${champ.title}</span></h2>
+                <h3 style="color: #c8aa6e; border-bottom: 1px solid #c8aa6e; padding-bottom: 5px;">Yetenekler</h3>
+                <ul style="padding-left: 20px; line-height: 1.6;">${abilitiesHTML}</ul>
+                <h3 style="color: #c8aa6e; border-bottom: 1px solid #c8aa6e; padding-bottom: 5px;">Tavsiye Edilen Eşyalar</h3>
+                <div style="margin-bottom: 15px;">${itemsHTML}</div>
+                <h3 style="color: #c8aa6e; border-bottom: 1px solid #c8aa6e; padding-bottom: 5px;">Zorlandığı Rakipler (Counters)</h3>
+                <div>${countersHTML}</div>`;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() { document.getElementById("detailModal").style.display = "none"; }
+    </script>
+</body>
+</html>

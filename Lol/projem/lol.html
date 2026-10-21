@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Rehberi - Ana Sayfa</title>
+    <style>
+        body {
+            background-color: #091428;
+            color: #f0e6d2;
+            font-family: 'Cinzel', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* BANNER ALANI (img src Yapısı) */
+        .lol-banner-container {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #c8aa6e;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+        }
+
+        .lol-banner-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+        }
+
+        .banner-text h1 {
+            color: #c8aa6e;
+            font-size: 42px;
+            margin: 0;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+        }
+
+        .banner-text p {
+            color: #f0e6d2;
+            font-size: 18px;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        /* ARAMA KUTUSU */
+        .search-box-container {
+            margin: 30px 0 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        #searchInput {
+            padding: 12px 20px;
+            width: 320px;
+            border-radius: 4px;
+            border: 1px solid #c8aa6e;
+            background: #010a13;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: border 0.3s;
+        }
+
+        #searchInput:focus {
+            border-color: #f0e6d2;
+        }
+
+        /* KORİDORLARIN SIRALANDIĞI ALAN */
+        .section-title {
+            color: #c8aa6e;
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #c8aa6e;
+            padding-bottom: 5px;
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .lane-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            width: 90%;
+            margin-bottom: 40px;
+        }
+
+        .lane-card {
+            background: #1e2328;
+            border: 2px solid #c8aa6e;
+            border-radius: 6px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #f0e6d2;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .lane-card:hover {
+            background: #c8aa6e;
+            color: #010a13;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(200, 170, 110, 0.5);
+        }
+
+        /* ARAMA SONUÇLARI */
+        .search-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            width: 90%;
+            margin-bottom: 30px;
+        }
+
+        .result-card {
+            background: #1e2328;
+            border: 1px solid #c8aa6e;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #f0e6d2;
+            display: block;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            background: #252b32;
+        }
+
+        .result-card h3 {
+            margin: 8px 0 3px 0;
+            font-size: 16px;
+        }
+
+        .result-card p {
+            margin: 0;
+            font-size: 12px;
+            color: #c8aa6e;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOL BANNER (Doğrudan <img src> etiketi kullanıldı) -->
+    <header class="lol-banner-container">
+        <img src="file:///C|/Users/Ogr14/Desktop/jj/Lol/Resimler/images (4).jpg" alt="League of Legends Banner">
+        <div class="banner-text">
+            <h1>League of Legends</h1>
+            <p>Sampiyon ve Koridor Rehberi</p>
+        </div>
+    </header>
+
+    <!-- ARAMA ÇUBUĞU -->
+    <div class="search-box-container">
+        <input type="text" id="searchInput" placeholder="Sampiyon ara..." onkeyup="searchAllChampions()">
+    </div>
+
+    <!-- ARAMA SONUÇLARI -->
+    <div id="searchResults" class="search-results"></div>
+
+    <!-- KORİDORLAR -->
+    <h2 class="section-title">Koridorunu Sec</h2>
+    <div class="lane-container">
+        <a href="top.html" class="lane-card">Ust Koridor (Top)</a>
+        <a href="mid.html" class="lane-card">Orta Koridor (Mid)</a>
+        <a href="bot.html" class="lane-card">Alt Koridor (Bot)</a>
+        <a href="jungle.html" class="lane-card">Orman (Jungle)</a>
+    </div>
+
+    <script>
+        const allChampions = [
+            { name: "Darius", title: "Noxus'un Kudreti", lane: "Ust Koridor", page: "top.html" },
+            { name: "Garen", title: "Demacia'nın Kudreti", lane: "Ust Koridor", page: "top.html" },
+            { name: "Ahri", title: "Dokuz Kuyruklu Tilki", lane: "Orta Koridor", page: "mid.html" },
+            { name: "Zed", title: "Gölgelerin Efendisi", lane: "Orta Koridor", page: "mid.html" },
+            { name: "Jinx", title: "Kural Tanımaz Delifişek", lane: "Alt Koridor", page: "bot.html" },
+            { name: "Caitlyn", title: "Piltover Serif Yardımcısı", lane: "Alt Koridor", page: "bot.html" },
+            { name: "Thresh", title: "Zincirli Gardiyan", lane: "Alt Koridor", page: "bot.html" },
+            { name: "Lulu", title: "Isıltılı Muhafız", lane: "Alt Koridor", page: "bot.html" },
+            { name: "Lee Sin", title: "Kör Kesis", lane: "Orman", page: "jungle.html" }
+        ];
+
+        function searchAllChampions() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const resultsContainer = document.getElementById("searchResults");
+            resultsContainer.innerHTML = "";
+
+            if (query === "") return;
+
+            const filtered = allChampions.filter(c => c.name.toLowerCase().includes(query));
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: #a09b8c;">Sampiyon bulunamadi.</p>`;
+                return;
+            }
+
+            filtered.forEach(champ => {
+                const card = document.createElement("a");
+                card.href = champ.page;
+                card.className = "result-card";
+                card.innerHTML = `
+                    <h3>${champ.name}</h3>
+                    <p>${champ.lane}</p>
+                `;
+                resultsContainer.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
